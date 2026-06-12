@@ -1,0 +1,122 @@
+<template>
+  <div class="tag-manage">
+    <div class="top-bar">
+      <el-button type="primary" @click="openDialog()">新增标签</el-button>
+    </div>
+    <el-table :data="tableData" stripe v-loading="loading">
+      <el-table-column prop="id" label="ID" width="70" />
+      <el-table-column prop="name" label="标签名" />
+      <el-table-column prop="article_count" label="文章数" width="100" />
+      <el-table-column label="操作" width="160">
+        <template #default="{ row }">
+          <el-button type="primary" link @click="openDialog(row)">编辑</el-button>
+          <el-popconfirm title="确定删除该标签吗？" @confirm="handleDelete(row.id)">
+            <template #reference>
+              <el-button type="danger" link>删除</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      v-model:current-page="page"
+      v-model:page-size="pageSize"
+      :total="total"
+      :page-sizes="[10, 20, 50]"
+      layout="total, sizes, prev, pager, next, jumper"
+      style="margin-top: 16px; justify-content: flex-end"
+      @size-change="loadList"
+      @current-change="loadList"
+    />
+    <el-dialog v-model="dialogVisible" :title="editingId ? '编辑标签' : '新增标签'" width="480px">
+      <el-form :model="form" label-width="80px">
+        <el-form-item label="标签名">
+          <el-input v-model="form.name" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleSave" :loading="saving">确定</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { adminGetTagList, adminCreateTag, adminUpdateTag, adminDeleteTag } from '@/api/admin'
+
+const tableData = ref([])
+const loading = ref(false)
+const page = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
+const dialogVisible = ref(false)
+const editingId = ref(null)
+const saving = ref(false)
+
+const form = ref({
+  name: ''
+})
+
+const loadList = async () => {
+  loading.value = true
+  try {
+    const res = await adminGetTagList({
+      page: page.value,
+      page_size: pageSize.value
+    })
+    tableData.value = res.data.list || []
+    total.value = res.data.total || 0
+  } finally {
+    loading.value = false
+  }
+}
+
+const openDialog = (row = null) => {
+  if (row) {
+    editingId.value = row.id
+    form.value = { name: row.name }
+  } else {
+    editingId.value = null
+    form.value = { name: '' }
+  }
+  dialogVisible.value = true
+}
+
+const handleSave = async () => {
+  saving.value = true
+  try {
+    if (editingId.value) {
+      await adminUpdateTag(editingId.value, form.value)
+    } else {
+      await adminCreateTag(form.value)
+    }
+    ElMessage.success('保存成功')
+    dialogVisible.value = false
+    loadList()
+  } finally {
+    saving.value = false
+  }
+}
+
+const handleDelete = async (id) => {
+  await adminDeleteTag(id)
+  ElMessage.success('删除成功')
+  loadList()
+}
+
+onMounted(loadList)
+</script>
+
+<style scoped>
+.tag-manage {
+  padding: 20px;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+</style>

@@ -1,0 +1,8 @@
+@font-face {font-family: "Engravers' Old English BT";
+    src: url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.eot");
+    src: url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.woff2") format("woff2"),
+    url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.woff") format("woff"),
+    url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.ttf") format("truetype"),
+    url("../fonts/d571b52b60b5617399ce8eab62bf3eb3.svg#Engravers' Old English BT") format("svg");
+}
