@@ -12,19 +12,19 @@
     <el-table :data="tableData" stripe v-loading="loading">
       <el-table-column prop="id" label="ID" width="70" />
       <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
-      <el-table-column prop="category_name" label="分类" width="120" />
+      <el-table-column prop="categoryName" label="分类" width="120" />
       <el-table-column label="状态" width="100">
         <template #default="{ row }">
-          <el-tag :type="row.status === 'draft' ? 'warning' : 'success'">{{ row.status === 'draft' ? '草稿' : '已发布' }}</el-tag>
+          <el-tag :type="row.status === 0 ? 'warning' : 'success'">{{ row.status === 0 ? '草稿' : '已发布' }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="view_count" label="浏览量" width="90" />
+      <el-table-column prop="viewCount" label="浏览量" width="90" />
       <el-table-column label="是否置顶" width="90">
         <template #default="{ row }">
-          <el-tag :type="row.is_top ? 'danger' : 'info'">{{ row.is_top ? '是' : '否' }}</el-tag>
+          <el-tag :type="row.isTop ? 'danger' : 'info'">{{ row.isTop ? '是' : '否' }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="created_at" label="创建时间" width="180" />
+      <el-table-column prop="createTime" label="创建时间" width="180" />
       <el-table-column label="操作" width="160" fixed="right">
         <template #default="{ row }">
           <el-button type="primary" link @click="$router.push(`/admin/articles/edit/${row.id}`)">编辑</el-button>
@@ -67,11 +67,11 @@ const loadList = async () => {
   try {
     const res = await adminGetArticleList({
       page: page.value,
-      page_size: pageSize.value,
+      size: pageSize.value,
       keyword: searchKeyword.value,
       status: statusFilter.value
     })
-    tableData.value = res.data.list || []
+    tableData.value = res.data.records || []
     total.value = res.data.total || 0
   } finally {
     loading.value = false

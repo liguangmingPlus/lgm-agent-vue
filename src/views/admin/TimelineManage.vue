@@ -112,9 +112,9 @@ const loadList = async () => {
   try {
     const res = await adminGetTimelineList({
       page: page.value,
-      page_size: pageSize.value
+      size: pageSize.value
     })
-    tableData.value = res.data.list || []
+    tableData.value = res.data.records || []
     total.value = res.data.total || 0
   } finally {
     loading.value = false
@@ -142,7 +142,7 @@ const openDialog = (row = null) => {
 
 const handleUpload = async (file) => {
   const res = await adminUpload(file)
-  form.value.image = res.data.url
+  form.value.image = res.data
   ElMessage.success('上传成功')
   return false
 }

@@ -65,9 +65,9 @@ const loadList = async () => {
   try {
     const res = await adminGetTagList({
       page: page.value,
-      page_size: pageSize.value
+      size: pageSize.value
     })
-    tableData.value = res.data.list || []
+    tableData.value = res.data.records || []
     total.value = res.data.total || 0
   } finally {
     loading.value = false

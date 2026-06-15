@@ -29,7 +29,7 @@ onMounted(async () => {
     statCards.value = [
       { label: '文章总数', value: data.articleCount ?? 0 },
       { label: '项目总数', value: data.projectCount ?? 0 },
-      { label: '留言总数', value: data.guestbookCount ?? 0 },
+      { label: '留言总数', value: data.messageCount ?? 0 },
       { label: '友链总数', value: data.friendCount ?? 0 }
     ]
   } catch (e) {
