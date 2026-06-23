@@ -1,1 +1,0 @@
-import{g as s}from"./index-CW7f65xU.js";function n(){s(()=>{const r=new IntersectionObserver(e=>{e.forEach(o=>{o.isIntersecting&&(o.target.classList.add("up"),r.unobserve(o.target))})},{threshold:.1});document.querySelectorAll(".iUp").forEach(e=>{r.observe(e)})})}export{n as u};

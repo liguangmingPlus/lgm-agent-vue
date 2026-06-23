@@ -1,0 +1,1 @@
+import{r as e}from"./request-pXJOhhjZ.js";function s(t){return e.get("/articles",{params:t})}function a(t){return e.get(`/articles/${t}`)}function i(t){return e.get("/articles/search",{params:t})}function c(){return e.get("/categories")}function n(){return e.get("/tags")}export{n as a,s as b,a as c,c as g,i as s};
