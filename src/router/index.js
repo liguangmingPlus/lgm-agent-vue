@@ -13,7 +13,8 @@ const routes = [
       { path: 'resume', name: 'Resume', component: () => import('@/views/resume/ResumeView.vue') },
       { path: 'about', name: 'About', component: () => import('@/views/about/AboutView.vue') },
       { path: 'guestbook', name: 'Guestbook', component: () => import('@/views/guestbook/GuestbookView.vue') },
-      { path: 'friends', name: 'Friends', component: () => import('@/views/friends/FriendsView.vue') }
+      { path: 'friends', name: 'Friends', component: () => import('@/views/friends/FriendsView.vue') },
+      { path: 'agent', name: 'Agent', component: () => import('@/views/agent/AgentChat.vue') }
     ]
   },
   {

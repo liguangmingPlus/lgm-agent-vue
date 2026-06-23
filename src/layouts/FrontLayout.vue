@@ -41,6 +41,7 @@ const navItems = [
   { path: '/projects', label: '项目' },
   { path: '/resume', label: '简历' },
   { path: '/about', label: '关于' },
+  { path: '/agent', label: 'AI助手' },
   { path: '/guestbook', label: '留言' },
   { path: '/friends', label: '友链' }
 ]
